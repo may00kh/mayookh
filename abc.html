@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Name Validation
+            if (name === "") {
+                alert("Name is required");
+                return false;
+            }
+            for (var i = 0; i < name.length; i++) {
+                var char = name.charAt(i);
+                if (!((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z') || char === ' ')) {
+                    alert("Name must only contain letters and spaces");
+                    return false;
+                }
+            }
+
+
+               // Phone Validation
+            if (phone === "") {
+                alert("Phone number is required");
+                return false;
+            }
+            if (phone.length !== 10 || isNaN(phone)) {
+                alert("Phone number must be 10 digits and numeric");
+                return false;
+            }
+
+            // Email Validation
+            if (email === "") {
+                alert("Email is required");
+                return false;
+            }
+            var atIndex = email.indexOf('@');
+            var dotIndex = email.lastIndexOf('.');
+            if (atIndex === -1 || dotIndex === -1 || atIndex > dotIndex) {
+                alert("Please enter a valid email");
+                return false;
+            }
+
+                // Password Validation
+            if (password === "") {
+                alert("Password is required");
+                return false;
+            }
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return false;
+            }
+
+            var hasLetter = false;
+            var hasNumber = false;
+            for (var i = 0; i < password.length; i++) {
+                var char = password.charAt(i);
+                if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
+                    hasLetter = true;
+                }
+                if (char >= '0' && char <= '9') {
+                    hasNumber = true;
+                }
+            }
+            if (!hasLetter || !hasNumber) {
+                alert("Password must contain both letters and numbers");
+                return false;
+            }
+
+            
+// If all validations pass
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h2>Registration Form</h2>
+        <form onsubmit="return validateForm();">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="phone">Phone Number:</label><br>
+            <input type="text" id="phone" name="phone"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>
